@@ -5,10 +5,10 @@ FROM tomcat:10.1-jdk17
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copia seu projeto .war para o Tomcat
-COPY target/LuisFerreira3infoH.war /usr/local/tomcat/webapps/ROOT.war
+COPY target/LuisKetllyn3infoH-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 # Expõe a porta 8080
 EXPOSE 8080
 
-# Inicia o Tomcat
+# Inicia o Tomcat 
 CMD ["catalina.sh", "run"]
