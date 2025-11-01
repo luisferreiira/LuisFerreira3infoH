@@ -15,24 +15,16 @@ import java.sql.SQLException;
  */
 public class ConnectionFactory {
 
-    //servidor local
-    //private static final String DB_URL = "jdbc:mysql://localhost:3307/bdestudoluisferreira?useSSL=false";;
-    /*private static final String DB_URL = "jdbc:mysql://localhost:3307/luis_parque?useSSL=false";
-    private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "1234";*/
     
-    // servidor em alwaysdata
-    private static final String DB_URL = "jdbc:mysql://mysql-diversoesparque.alwaysdata.net:3306/diversoesparque_banco?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Sao_Paulo";
+    
+    //github / render
+    private static final String DB_URL = System.getenv("DB_URL");
     private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_USER = "437841_luis";
-    private static final String DB_PASSWORD = "luisferreira2025p";
+    private static final String DB_USER = System.getenv("DB_USER");
+    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
 
-    //servidor em railway
-    /*private static final String DB_URL = "jdbc:mysql://switchyard.proxy.rlwy.net:42683/railway?useSSL=false&serverTimezone=America/Sao_Paulo";
-    private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "fZbtHGkrjfcCZQFlZyLzdfwxnPhhJZMo";*/
+
+    
 
     //Variável estática que mantém a instância única de ConnectionFactory
     private static ConnectionFactory instance;
