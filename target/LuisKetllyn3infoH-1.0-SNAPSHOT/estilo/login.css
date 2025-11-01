@@ -1,0 +1,238 @@
+/* Resetando alguns estilos padrões */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Corpo da página */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #0066cc;
+    padding: 15px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    color: white;
+    position: relative;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    position: relative;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px;
+    display: block;
+}
+
+.nav-links a:hover {
+    background-color: #005bb5;
+    border-radius: 5px;
+}
+
+/* Título */
+h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #0066cc;
+    margin: 20px 0;
+}
+
+/* Formulário de Login */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 50px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+form input[type="email"],
+form input[type="password"],
+form input[type="hidden"]{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #0066cc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Botão Padrão (Entrar) */
+form button {
+    padding: 10px 25px;
+    background-color: #ffcc00; /* Padrão: Entrar/Cadastrar (Amarelo) */
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+form button:hover {
+    background-color: #ffdb4d;
+}
+
+form a {
+    text-decoration: none;
+    color: #0066cc;
+    font-weight: 500;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+form a:hover {
+    text-decoration: underline;
+}
+
+/* Classes específicas para o Login */
+
+/* Botão Entrar */
+.botao-entrar {
+    padding: 10px 25px !important;
+    background-color: #0073e6 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    cursor: pointer!important;
+    display: block; /* Para garantir alinhamento no Login */
+}
+
+.botao-entrar:hover {
+    background-color: #005bb5 !important;
+}
+
+/* Botão Esqueci Minha Senha (usa o estilo de "Cancelar") */
+.botao-cancelar {
+    padding: 10px 25px !important;
+    background-color: #ff6b6b !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    margin-top: 10px; /* Garante espaçamento entre Entrar e Esqueci Senha */
+    display: block; /* Para garantir alinhamento no Login */
+    text-align: center; /* Centraliza o texto se for um link <a> */
+}
+
+.botao-cancelar:hover {
+    background-color: #ff0000 !important;
+}
+
+/* Parágrafo explicativo da página Esqueci minha senha */
+.paragrafo-recuperacao {
+    font-size: 1em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+
+/* Rodapé */
+footer {
+    background-color: #0d6efd;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+    margin-top: auto; /* Garante que o footer fique no final da página */
+}
+
+/* ---------------------------------------------------- */
+/* --- Media Query para Responsividade (Login) --- */
+/* ---------------------------------------------------- */
+@media (max-width: 768px) {
+
+    /* 1. Ajustes Gerais de Corpo e Título */
+    body {
+        overflow-x: hidden;
+    }
+
+    h2 {
+        font-size: 1.6em; /* Reduz o título para mobile */
+        margin: 15px 10px;
+    }
+
+    /* 2. Ajustes do Formulário de Login */
+    form {
+        max-width: 95%;
+        width: 95%;
+        margin: 20px auto 30px auto;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    /* Input Fields (para garantir que ocupem o espaço corretamente) */
+    form input[type="email"],
+    form input[type="password"] {
+        width: 100%;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    /* Botões: Faz com que todos os botões e links no formulário ocupem 100% e se empilhem */
+    form button,
+    form a,
+    form a > button {
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        display: block; /* Força o empilhamento vertical */
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    /* 3. Rodapé */
+    footer {
+        padding: 10px 10px;
+        font-size: 0.8em;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

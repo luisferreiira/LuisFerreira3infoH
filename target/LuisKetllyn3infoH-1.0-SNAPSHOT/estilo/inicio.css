@@ -1,0 +1,368 @@
+/* Resetando alguns estilos padrões */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Corpo da página */
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Menu */
+header {
+    background-color: #0066cc;
+    padding: 15px 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    color: white;
+    position: relative;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    position: relative;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a,
+.logo a{
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px;
+    display: block;
+}
+
+.nav-links a:hover {
+    background-color: #005bb5;
+    border-radius: 5px;
+}
+
+/* Submenu */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: #0073e6;
+    list-style: none;
+    min-width: 160px;
+    z-index: 10;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.submenu li a {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.submenu li a:hover {
+    background-color: #005bb5;
+}
+
+.dropdown:hover .submenu {
+    display: block;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),url("../imagens/parque.jpg"); /* Substitua com caminho válido */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 12px 25px;
+    background-color: #ffcc00;
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #ffdb4d;
+}
+
+/* Conteúdo */
+main {
+    flex: 1;
+}
+
+/* Seção de Destaques */
+.destaques {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.destaques h2 {
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+/* Cards */
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card {
+    /* REMOVIDO: background-color: #e6f2ff; (evita conflito com as imagens nos IDs) */
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background-size: cover;        /* Faz a imagem preencher todo o card */
+    background-position: center;   /* Centraliza a imagem */
+    background-repeat: no-repeat;  /* Evita repetição da imagem */
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.card h3,
+.card p
+{
+    color: white;
+}
+
+#card1
+{
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../imagens/montanharussa.jpg);
+}
+#card2
+{
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../imagens/baile.jpg);
+}
+#card3
+{
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(../imagens/lanches.jpg);
+}
+
+/* Rodapé */
+footer {
+    background-color: #0d6efd;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+}
+
+
+/* --- Estilos do Menu Hamburger --- */
+/* Oculta o ícone de hambúrguer por padrão (visível apenas em mobile) */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    /* NOVO: Arredonda as pontas da barra do hambúrguer */
+    border-radius: 3px;
+}
+
+/* --- Media Query para Mobile (Telas até 768px) - CORREÇÃO FINAL DE ESPAÇAMENTO --- */
+@media (max-width: 768px) {
+
+    .logo a{padding-left: 20px;}
+    
+    .navbar {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        width: 100%;
+        margin: 0;
+    }
+
+    /* 1. Torna o ícone de hambúrguer visível */
+    .menu-toggle {
+        display: flex;
+        z-index: 20;
+        margin-right: 20px;
+        margin-top: 20px; 
+    }
+
+    /* 2. Menu Container (ul.nav-links) - Fundo Azul Principal (#0066cc) */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px; 
+        left: 0;
+        background-color: #0066cc; /* Fundo principal */
+        padding: 0;
+        margin: 0;
+        z-index: 15;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    /* 3. Itens principais do menu (LI) */
+    .nav-links li {
+        width: 100%;
+        text-align: left;
+        position: static;
+        border: none !important; 
+        padding: 0;
+        margin: 0;
+    }
+
+    /* 4. Links principais (A) - Responsável pela separação */
+    .nav-links a {
+        /* Borda padrão de separação entre links principais */
+        border-bottom: 1px solid #005bb5; 
+        padding: 15px 20px;
+        width: 100%;
+        display: block;
+        margin: 0;
+    }
+
+    /* Remove a borda do link "Sair" (último item) */
+    .nav-links li:last-child a {
+        border-bottom: none;
+    }
+
+    /* 5. Submenu (UL.submenu) - Fundo Azul Escuro (#0073e6) */
+    .dropdown:hover .submenu,
+    .submenu {
+        display: block; 
+        position: static; 
+        width: 100%;
+        background-color: #0073e6; /* Fundo do submenu */
+        box-shadow: none;
+        /* CORREÇÃO CHAVE: Zera padding/margin do UL.submenu */
+        padding: 0;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    /* Remove a borda do link principal que aciona o dropdown (Cadastrar, Relatórios) */
+    .dropdown > a {
+        border-bottom: none;
+        margin: 0;
+    }
+    
+    /* 6. Itens do Submenu (LI dentro do UL.submenu) */
+    .submenu li {
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+
+    /* 7. Links do Submenu (A dentro do UL.submenu) */
+    .submenu li a {
+        /* Borda para separar os subitens */
+        border-bottom: 1px solid #0066cc; /* Use a cor do fundo principal para uma borda sutil, ou #005bb5 */
+        padding: 12px 20px 12px 40px; 
+        font-size: 0.9em;
+        display: block; 
+    }
+
+    /* CORREÇÃO CHAVE 4: Remove a borda do último subitem (ex: Categoria, Visitantes) */
+    .submenu li:last-child a {
+        border-bottom: none;
+    }
+
+    /* CORREÇÃO CHAVE 5: Adiciona a borda de separação *após* o último item do submenu
+       e antes do próximo item principal ("Relatórios", "Comprar") */
+    .dropdown:has(.submenu) {
+        /* Este LI.dropdown agora tem a borda que separa o bloco do próximo item principal */
+        border-bottom: 1px solid #005bb5; 
+    }
+
+    /* Garante que o último dropdown (Relatórios) não tenha borda para não colidir com o "Comprar" */
+    .nav-links li.dropdown:last-child {
+        border-bottom: none;
+    }
+
+    /* 8. Ajustes nos Cards e Hero (permanecem os mesmos) */
+    .cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .card {
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .hero {
+        padding: 40px 10px;
+    }
+
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    footer {
+        font-size: 0.8em;
+    }
+}
