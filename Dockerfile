@@ -7,8 +7,11 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 # Copia seu projeto .war para o Tomcat
 COPY target/LuisKetllyn3infoH-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expõe a porta dinâmica
+# Define variável de ambiente padrão para o Railway
+ENV PORT=8080
+
+# Expõe a porta 8080
 EXPOSE 8080
 
-# Inicia o Tomcat em primeiro plano (não deixa o container parar)
+# Inicia o Tomcat
 CMD ["catalina.sh", "run"]
