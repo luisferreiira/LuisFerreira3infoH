@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class EmailService {
 
-    private static final String SENDGRID_API_KEY = "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"; // substitua pela chave do SendGrid
-    private static final String FROM_EMAIL = "luis1.ferreira@alunos.ifsuldeminas.edu.br";
+    private static final String SENDGRID_API_KEY = System.getenv("SENDGRID_API_KEY"); // substitua pela chave do SendGrid
+    private static final String FROM_EMAIL = System.getenv("FROM_EMAIL");
     private static final String FROM_NAME = "Parque";
 
     /**
@@ -18,6 +18,7 @@ public class EmailService {
      * @param request HttpServletRequest para gerar a URL dinamicamente
      * @param para email do destinatário
      * @param token token de redefinição
+     * @throws java.io.IOException
      */
     public static void enviarLinkRedefinicao(HttpServletRequest request, String para, String token) throws IOException {
 

@@ -56,6 +56,7 @@ com\mycompany\luisferreira3infoh\controlador\CategoriaControlador.class
 com\mycompany\luisferreira3infoh\servico\AuthFilter.class
 com\mycompany\luisferreira3infoh\modelo\dao\RowMapper.class
 com\mycompany\luisferreira3infoh\modelo\dao\IngressoBrinquedosDAO$IngressoBrinquedosRowMapper.class
+com\mycompany\luisferreira3infoh\servico\EmailService$1.class
 com\mycompany\luisferreira3infoh\modelo\dao\RelatorioCargoDAO.class
 com\mycompany\luisferreira3infoh\modelo\dao\Tokens_RedefinicaoDAO.class
 com\mycompany\luisferreira3infoh\modelo\dao\CategoriaDAO$CategoriaRowMapper.class
