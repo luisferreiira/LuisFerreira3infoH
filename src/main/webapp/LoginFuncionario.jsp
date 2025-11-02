@@ -28,8 +28,9 @@
 
                 <button class="botao-entrar" type="submit">Entrar</button>
 
-                <a class="botao-excluir" href="${pageContext.request.contextPath}/esqueciSenhaFuncionario.jsp">
-                    Esqueci minha senha
+                <!-- Link para a página de esqueci a senha -->
+                <a  href="${pageContext.request.contextPath}/esqueciSenhaFuncionario.jsp">
+                    <button class="botao-cancelar" type="button">Esqueci minha senha</button>
                 </a>
 
                 <c:if test="${not empty erro}">
