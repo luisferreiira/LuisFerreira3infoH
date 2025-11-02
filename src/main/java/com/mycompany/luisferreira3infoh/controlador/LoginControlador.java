@@ -132,7 +132,7 @@ public class LoginControlador extends HttpServlet {
 
             try {
                 // TODO: ajustar baseUrl dinamicamente (ex.: request.getContextPath())
-                EmailService.enviarLinkRedefinicao(email, token.getToken());
+                EmailService.enviarLinkRedefinicao((jakarta.servlet.http.HttpServletRequest) request, email, token.getToken());
                 request.setAttribute("mensagem", "Um link de redefinição foi enviado para o seu email.");
             } catch (Exception e) {
                 e.printStackTrace();

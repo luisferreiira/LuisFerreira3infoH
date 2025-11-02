@@ -1,5 +1,56 @@
 package com.mycompany.luisferreira3infoh.servico;
 
+import com.sendgrid.*;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
+import java.io.IOException;
+import jakarta.servlet.http.HttpServletRequest;
+
+public class EmailService {
+
+    private static final String SENDGRID_API_KEY = "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"; // substitua pela chave do SendGrid
+    private static final String FROM_EMAIL = "luis1.ferreira@alunos.ifsuldeminas.edu.br";
+    private static final String FROM_NAME = "Parque";
+
+    /**
+     * Envia email de redefinição de senha usando SendGrid.
+     * @param request HttpServletRequest para gerar a URL dinamicamente
+     * @param para email do destinatário
+     * @param token token de redefinição
+     */
+    public static void enviarLinkRedefinicao(HttpServletRequest request, String para, String token) throws IOException {
+
+        // Monta link completo de forma dinâmica, sem precisar mudar nada no controlador
+        String baseUrl = request.getScheme() + "://" + request.getServerName() + request.getContextPath();
+        String link = baseUrl + "/LoginControlador?opcao=redefinirSenha&token=" + token;
+
+        Email from = new Email(FROM_EMAIL, FROM_NAME);
+        Email to = new Email(para);
+        String subject = "Redefinição de senha";
+        Content content = new Content("text/plain",
+                "Olá!\n\nClique no link abaixo para redefinir sua senha:\n"
+                        + link + "\n\nO link expira em 1 hora."
+        );
+
+        Mail mail = new Mail(from, subject, to, content);
+        SendGrid sg = new SendGrid(SENDGRID_API_KEY);
+        Request requestSendGrid = new Request();
+
+        try {
+            requestSendGrid.setMethod(Method.POST);
+            requestSendGrid.setEndpoint("mail/send");
+            requestSendGrid.setBody(mail.build());
+            Response response = sg.api(requestSendGrid);
+            System.out.println("Status do envio: " + response.getStatusCode());
+        } catch (IOException ex) {
+            throw ex;
+        }
+    }
+}
+
+/*package com.mycompany.luisferreira3infoh.servico;
+
 import java.util.Properties;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
@@ -39,3 +90,4 @@ public class EmailService {
         System.out.println("Email enviado com sucesso para " + para);
     }
 }
+*/
