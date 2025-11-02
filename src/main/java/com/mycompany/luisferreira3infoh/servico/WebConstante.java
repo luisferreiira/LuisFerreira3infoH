@@ -10,5 +10,6 @@ package com.mycompany.luisferreira3infoh.servico;
  */
 public class WebConstante {
     
-     public static final String BASE_PATH = "/com/mycompany/luisferreira3infoh/controlador";
+     //public static final String BASE_PATH = "/com/mycompany/luisferreira3infoh/controlador";
+     public static final String BASE_PATH = "";
 }
