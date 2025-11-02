@@ -1,5 +1,5 @@
 # Usa imagem oficial do Tomcat com Java 17
-FROM tomcat:10.1-jdk17
+FROM tomcat:9.0-jdk17
 
 # Define a variável de ambiente PORT (Railway define automaticamente, mas garantimos fallback)
 ENV PORT=8080
