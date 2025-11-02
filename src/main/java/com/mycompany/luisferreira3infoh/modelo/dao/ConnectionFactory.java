@@ -17,7 +17,7 @@ public class ConnectionFactory {
 
     
     
-    //github / render
+    //github / railway
     private static final String DB_URL = System.getenv("DB_URL");
     private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_USER = System.getenv("DB_USER");
