@@ -8,7 +8,7 @@
         <title>Parque de Diversões</title>
         <link rel="stylesheet" href="estilo/inicio.css">
         <style>
-            /* Seus estilos inline... */
+            /* Estilos dos cards */
             .card {
                 background-color: #e6f2ff;
                 padding: 20px;
@@ -27,12 +27,6 @@
                 transform: scale(1.05);
             }
 
-            /* Remove sublinhado e mantém cor herdada dos links */
-            .cards a {
-                text-decoration: none;
-                color: inherit;
-            }
-
             .cards {
                 display: flex;
                 justify-content: center;
@@ -40,11 +34,17 @@
                 flex-wrap: wrap;
             }
         </style>
+        <script>
+            function redirecionarParaCadastroCompras() {
+                window.location.href = "CadastroCompras.jsp";
+            }
+        </script>
     </head>
     <body>
         <header>
             <%@include file="menuParque.jsp"%>
         </header>
+
         <main>
             <section class="hero">
                 <h1>Bem-vindo ao Parque de Diversões!</h1>
@@ -54,26 +54,20 @@
             <section class="destaques">
                 <h2>Destaques do Parque</h2>
                 <div class="cards">
-                    <a href="CadastroCompras.jsp">
-                        <div id="card1" class="card">
-                            <h3>Montanha-Russa</h3>
-                            <p>Velocidade e adrenalina em um só brinquedo!</p>
-                        </div>
-                    </a>
+                    <div id="card1" class="card" onclick="redirecionarParaCadastroCompras()">
+                        <h3>Montanha-Russa</h3>
+                        <p>Velocidade e adrenalina em um só brinquedo!</p>
+                    </div>
 
-                    <a href="CadastroCompras.jsp">
-                        <div id="card2" class="card">
-                            <h3>Baile de Máscaras</h3>
-                            <p>Sinta a emoção de ser livre por uma noite!</p>
-                        </div>
-                    </a>
+                    <div id="card2" class="card" onclick="redirecionarParaCadastroCompras()">
+                        <h3>Baile de Máscaras</h3>
+                        <p>Sinta a emoção de ser livre por uma noite!</p>
+                    </div>
 
-                    <a href="CadastroCompras.jsp">
-                        <div id="card3" class="card">
-                            <h3>Lanches</h3>
-                            <p>Onde quer que vá, um cardápio apropriado você terá!</p>
-                        </div>
-                    </a>
+                    <div id="card3" class="card" onclick="redirecionarParaCadastroCompras()">
+                        <h3>Lanches</h3>
+                        <p>Onde quer que vá, um cardápio apropriado você terá!</p>
+                    </div>
                 </div>
             </section>  
         </main>
