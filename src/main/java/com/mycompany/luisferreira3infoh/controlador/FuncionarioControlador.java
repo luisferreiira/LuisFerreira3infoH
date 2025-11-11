@@ -126,20 +126,20 @@ public class FuncionarioControlador extends HttpServlet {
         objFuncionario.setCargo(cargo);
 
         try {
-            objFuncionarioDao.salvar(objFuncionario);
-            request.setAttribute("mensagem", "Funcionário cadastrado com sucesso!");
-        } catch (Exception e) {
-            Throwable causa = e.getCause();
-            if (causa instanceof java.sql.SQLException) {
-                java.sql.SQLException sqlEx = (java.sql.SQLException) causa;
-                if (sqlEx.getErrorCode() == 1062) { // erro de duplicidade (email único)
-                    request.setAttribute("mensagemErro", "Erro: este email já está cadastrado!");
-                } else {
-                    request.setAttribute("mensagemErro", "Erro no banco de dados: " + sqlEx.getMessage());
-                }
+            // ✅ Verifica se já existe um funcionário com o mesmo email antes de salvar
+            Funcionario funcionarioExistente = objFuncionarioDao.buscarPorEmail(email);
+
+            if (funcionarioExistente != null) {
+                // Email já cadastrado
+                request.setAttribute("mensagemErro", "Erro: este email já está cadastrado!");
             } else {
-                request.setAttribute("mensagemErro", "Erro inesperado: " + e.getMessage());
+                // Salva normalmente
+                objFuncionarioDao.salvar(objFuncionario);
+                request.setAttribute("mensagem", "Funcionário cadastrado com sucesso!");
             }
+
+        } catch (Exception e) {
+            request.setAttribute("mensagemErro", "Erro inesperado: " + e.getMessage());
         }
 
         encaminharParaPagina(request, response);
