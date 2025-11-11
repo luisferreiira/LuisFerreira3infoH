@@ -43,7 +43,7 @@
                        value="${senha}" size="60" required><br><br>
 
                 <!-- Mensagem de feedback -->
-                <h3 style="color: #0066cc;">${mensagem}</h3>
+                <h2 style="color: #0066cc;">${mensagem}</h2>
 
                 <!-- Botão principal -->
                 <button type="submit" name="opcao"
