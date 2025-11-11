@@ -251,7 +251,7 @@ public class VisitanteControlador extends HttpServlet {
             objVisitante.setDataNascimento(dataNascimento);
         } catch (DateTimeParseException e) {
             request.setAttribute("mensagemErro", "Formato de data inválido!");
-            encaminharParaPagina(request, response);
+            encaminharParaPaginaLivre(request, response);
             return;
         }
 
@@ -260,7 +260,7 @@ public class VisitanteControlador extends HttpServlet {
             Visitante existente = objVisitanteDao.buscarPorEmail(email);
             if (existente != null) {
                 request.setAttribute("mensagemErro", "Erro: este email já está cadastrado!");
-                encaminharParaPagina(request, response);
+                encaminharParaPaginaLivre(request, response);
                 return;
             }
 
