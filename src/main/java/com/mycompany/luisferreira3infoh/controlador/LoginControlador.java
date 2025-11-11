@@ -21,7 +21,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 @WebServlet("/LoginControlador")
 public class LoginControlador extends HttpServlet {
-    
+
     ZonedDateTime agoraBrasil = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
     private VisitanteDAO visitanteDAO;
     private FuncionarioDAO funcionarioDAO;
@@ -66,51 +66,69 @@ public class LoginControlador extends HttpServlet {
     }
 
     private void fazerLoginVisitante(HttpServletRequest request, HttpServletResponse response,
-                                     String email, String senha) throws ServletException, IOException {
+            String email, String senha) throws ServletException, IOException {
         Visitante visitante = visitanteDAO.buscarPorEmail(email);
-        if (visitante != null && BCrypt.checkpw(senha, visitante.getSenha())) {
-            HttpSession session = request.getSession();
-            session.setAttribute("visitante", visitante);
-            session.setAttribute("usuarioLogado", visitante);
-            session.setAttribute("tipo", "visitante");
 
-            String destino = (String) session.getAttribute("destinoPosLogin");
-            if (destino != null) {
-                session.removeAttribute("destinoPosLogin");
-                response.sendRedirect(request.getContextPath() + destino);
-            } else {
-                response.sendRedirect(request.getContextPath() + "/CompraControlador?opcao=listar");
-            }
-        } else {
-            request.setAttribute("mensagem", "Email ou senha inválidos para visitante.");
+        if (visitante == null) {
+            request.setAttribute("erro", "E-mail não encontrado. Verifique e tente novamente.");
             request.getRequestDispatcher("/LoginVisitante.jsp").forward(request, response);
+            return;
+        }
+
+        if (!BCrypt.checkpw(senha, visitante.getSenha())) {
+            request.setAttribute("erro", "Senha incorreta. Tente novamente.");
+            request.getRequestDispatcher("/LoginVisitante.jsp").forward(request, response);
+            return;
+        }
+
+        // Login bem-sucedido
+        HttpSession session = request.getSession();
+        session.setAttribute("visitante", visitante);
+        session.setAttribute("usuarioLogado", visitante);
+        session.setAttribute("tipo", "visitante");
+
+        String destino = (String) session.getAttribute("destinoPosLogin");
+        if (destino != null) {
+            session.removeAttribute("destinoPosLogin");
+            response.sendRedirect(request.getContextPath() + destino);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/inicio.jsp");
         }
     }
 
     private void fazerLoginFuncionario(HttpServletRequest request, HttpServletResponse response,
-                                       String email, String senha) throws ServletException, IOException {
+            String email, String senha) throws ServletException, IOException {
         Funcionario funcionario = funcionarioDAO.buscarPorEmail(email);
-        if (funcionario != null && BCrypt.checkpw(senha, funcionario.getSenha())) {
-            HttpSession session = request.getSession();
-            session.setAttribute("tipo", "funcionario");
-            session.setAttribute("funcionario", funcionario);
-            session.setAttribute("usuarioLogado", funcionario);
 
-            String destino = (String) session.getAttribute("destinoPosLogin");
-            if (destino != null) {
-                session.removeAttribute("destinoPosLogin");
-                response.sendRedirect(request.getContextPath() + destino);
-            } else {
-                response.sendRedirect(request.getContextPath() + "/inicioFuncionario.jsp");
-            }
-        } else {
-            request.setAttribute("mensagem", "Email ou senha inválidos para funcionário.");
+        if (funcionario == null) {
+            request.setAttribute("erro", "E-mail não encontrado. Verifique e tente novamente.");
             request.getRequestDispatcher("/LoginFuncionario.jsp").forward(request, response);
+            return;
+        }
+
+        if (!BCrypt.checkpw(senha, funcionario.getSenha())) {
+            request.setAttribute("erro", "Senha incorreta. Tente novamente.");
+            request.getRequestDispatcher("/LoginFuncionario.jsp").forward(request, response);
+            return;
+        }
+
+        // Login bem-sucedido
+        HttpSession session = request.getSession();
+        session.setAttribute("tipo", "funcionario");
+        session.setAttribute("funcionario", funcionario);
+        session.setAttribute("usuarioLogado", funcionario);
+
+        String destino = (String) session.getAttribute("destinoPosLogin");
+        if (destino != null) {
+            session.removeAttribute("destinoPosLogin");
+            response.sendRedirect(request.getContextPath() + destino);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/inicio.jsp");
         }
     }
 
     private void tratarEsqueciSenha(HttpServletRequest request, HttpServletResponse response,
-                                    String email, String tipoUsuario) throws ServletException, IOException {
+            String email, String tipoUsuario) throws ServletException, IOException {
         boolean emailExiste = false;
 
         if ("visitante".equals(tipoUsuario)) {
@@ -214,7 +232,9 @@ public class LoginControlador extends HttpServlet {
 
         if ("logout".equals(opcao)) {
             HttpSession sessao = request.getSession(false);
-            if (sessao != null) sessao.invalidate();
+            if (sessao != null) {
+                sessao.invalidate();
+            }
             response.sendRedirect(request.getContextPath() + "/inicio.jsp");
             return;
         }
