@@ -116,21 +116,20 @@ public class VisitanteControlador extends HttpServlet {
         }
 
         try {
+            // 🔍 Verifica se já existe visitante com o mesmo e-mail
+            Visitante existente = objVisitanteDao.buscarPorEmail(email);
+            if (existente != null) {
+                request.setAttribute("mensagemErro", "Erro: este email já está cadastrado!");
+                encaminharParaPagina(request, response);
+                return;
+            }
+
+            // Se não existir, salva normalmente
             objVisitanteDao.salvar(objVisitante);
             request.setAttribute("mensagem", "Visitante cadastrado com sucesso!");
+
         } catch (Exception e) {
-            // Verifica se a exceção é do tipo SQLException e tem o código de erro 1062 (duplicado)
-            Throwable causa = e.getCause();
-            if (causa instanceof java.sql.SQLException) {
-                java.sql.SQLException sqlEx = (java.sql.SQLException) causa;
-                if (sqlEx.getErrorCode() == 1062) { // MySQL error code 1062 = Duplicate entry
-                    request.setAttribute("mensagemErro", "Erro: este email já está cadastrado!");
-                } else {
-                    request.setAttribute("mensagemErro", "Erro no banco de dados: " + sqlEx.getMessage());
-                }
-            } else {
-                request.setAttribute("mensagemErro", "Erro inesperado: " + e.getMessage());
-            }
+            request.setAttribute("mensagemErro", "Erro inesperado: " + e.getMessage());
         }
 
         encaminharParaPagina(request, response);
@@ -233,26 +232,44 @@ public class VisitanteControlador extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void cadastrarLivre(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    // Método para cadastrar
+    protected void cadastrarLivre(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Visitante objVisitante = new Visitante();
+
+        String nomeVisitante = request.getParameter("nomeVisitante");
+        String dataNascimentoStr = request.getParameter("dataNascimento");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+
+        objVisitante.setNomeVisitante(nomeVisitante);
+        objVisitante.setEmail(email);
+        objVisitante.setSenha(senha);
+
         try {
-            String nomeVisitante = request.getParameter("nomeVisitante");
-            String dataNascimento = request.getParameter("dataNascimento");
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
+            objVisitante.setDataNascimento(dataNascimento);
+        } catch (DateTimeParseException e) {
+            request.setAttribute("mensagemErro", "Formato de data inválido!");
+            encaminharParaPagina(request, response);
+            return;
+        }
 
-            Visitante objVisitante = new Visitante();
-            objVisitante.setNomeVisitante(nomeVisitante);
-            objVisitante.setDataNascimento(LocalDate.parse(dataNascimento));
-            objVisitante.setEmail(email);
-            objVisitante.setSenha(senha);
+        try {
+            // 🔍 Verifica se já existe visitante com o mesmo e-mail
+            Visitante existente = objVisitanteDao.buscarPorEmail(email);
+            if (existente != null) {
+                request.setAttribute("mensagemErro", "Erro: este email já está cadastrado!");
+                encaminharParaPagina(request, response);
+                return;
+            }
 
-            VisitanteDAO dao = new VisitanteDAO();
-            dao.salvar(objVisitante);
+            // Se não existir, salva normalmente
+            objVisitanteDao.salvar(objVisitante);
+            request.setAttribute("mensagem", "Visitante cadastrado com sucesso!");
 
-            request.setAttribute("mensagem", "Cadastro realizado com sucesso!");
         } catch (Exception e) {
-            request.setAttribute("mensagem", "Erro ao realizar o cadastro: " + e.getMessage());
+            request.setAttribute("mensagemErro", "Erro inesperado: " + e.getMessage());
         }
 
         encaminharParaPaginaLivre(request, response);

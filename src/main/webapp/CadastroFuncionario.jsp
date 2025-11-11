@@ -76,14 +76,6 @@
                 </a>
             </form>
 
-            <c:if test="${not empty mensagemErro}">
-                <h2 style="color:red;">${mensagemErro}</h2>
-            </c:if>
-
-            <c:if test="${not empty mensagem}">
-                <h2 style="color:green;">${mensagem}</h2>
-            </c:if>
-
             <hr>
 
             <h2>Lista de Funcionários</h2>
