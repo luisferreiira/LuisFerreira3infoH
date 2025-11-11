@@ -32,7 +32,7 @@ public class FuncionarioControlador extends HttpServlet {
     private CargoDAO objCargoDao;
     private Funcionario objFuncionario;
     private Cargo cargo;
-    String codFuncionario, nomeFuncionario, cpf, carteiraTrabalho, dataAdmissaoStr, dataDemissaoStr,email, senha, codCargo;
+    String codFuncionario, nomeFuncionario, cpf, carteiraTrabalho, dataAdmissaoStr, dataDemissaoStr, email, senha, codCargo;
 
     @Override
     public void init() {
@@ -117,15 +117,31 @@ public class FuncionarioControlador extends HttpServlet {
             }
 
         } catch (DateTimeParseException e) {
-            request.setAttribute("erro", "Formato de data inválido.");
-            request.getRequestDispatcher("/erro.jsp").forward(request, response);
+            request.setAttribute("mensagemErro", "Formato de data inválido!");
+            encaminharParaPagina(request, response);
             return;
         }
 
         cargo.setCodCargo(Integer.valueOf(codCargo));
         objFuncionario.setCargo(cargo);
 
-        objFuncionarioDao.salvar(objFuncionario);
+        try {
+            objFuncionarioDao.salvar(objFuncionario);
+            request.setAttribute("mensagem", "Funcionário cadastrado com sucesso!");
+        } catch (Exception e) {
+            Throwable causa = e.getCause();
+            if (causa instanceof java.sql.SQLException) {
+                java.sql.SQLException sqlEx = (java.sql.SQLException) causa;
+                if (sqlEx.getErrorCode() == 1062) { // erro de duplicidade (email único)
+                    request.setAttribute("mensagemErro", "Erro: este email já está cadastrado!");
+                } else {
+                    request.setAttribute("mensagemErro", "Erro no banco de dados: " + sqlEx.getMessage());
+                }
+            } else {
+                request.setAttribute("mensagemErro", "Erro inesperado: " + e.getMessage());
+            }
+        }
+
         encaminharParaPagina(request, response);
     }
 

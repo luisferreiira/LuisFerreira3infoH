@@ -17,6 +17,7 @@ import java.util.List;
 
 @WebServlet(WebConstante.BASE_PATH + "/VisitanteControlador")
 public class VisitanteControlador extends HttpServlet {
+
     private VisitanteDAO objVisitanteDao;
 
     @Override
@@ -54,6 +55,27 @@ public class VisitanteControlador extends HttpServlet {
                 case "cancelar":
                     cancelar(request, response);
                     break;
+                case "listarLivre":
+                    encaminharParaPaginaLivre(request, response);
+                    break;
+                case "cadastrarLivre":
+                    cadastrarLivre(request, response);
+                    break;
+                case "editarLivre":
+                    editarLivre(request, response);
+                    break;
+                case "confirmarEditarLivre":
+                    confirmarEditarLivre(request, response);
+                    break;
+                case "excluirLivre":
+                    excluirLivre(request, response);
+                    break;
+                case "confirmarExcluirLivre":
+                    confirmarExcluirLivre(request, response);
+                    break;
+                case "cancelarLivre":
+                    cancelarLivre(request, response);
+                    break;
                 default:
                     throw new IllegalArgumentException("Opção inválida: " + opcao);
             }
@@ -88,12 +110,29 @@ public class VisitanteControlador extends HttpServlet {
             LocalDate dataNascimento = LocalDate.parse(dataNascimentoStr, formatter);
             objVisitante.setDataNascimento(dataNascimento);
         } catch (DateTimeParseException e) {
-            request.setAttribute("erro", "Formato de data de nascimento inválido.");
-            request.getRequestDispatcher("/erro.jsp").forward(request, response);
+            request.setAttribute("mensagemErro", "Formato de data inválido!");
+            encaminharParaPagina(request, response);
             return;
         }
 
-        objVisitanteDao.salvar(objVisitante);
+        try {
+            objVisitanteDao.salvar(objVisitante);
+            request.setAttribute("mensagem", "Visitante cadastrado com sucesso!");
+        } catch (Exception e) {
+            // Verifica se a exceção é do tipo SQLException e tem o código de erro 1062 (duplicado)
+            Throwable causa = e.getCause();
+            if (causa instanceof java.sql.SQLException) {
+                java.sql.SQLException sqlEx = (java.sql.SQLException) causa;
+                if (sqlEx.getErrorCode() == 1062) { // MySQL error code 1062 = Duplicate entry
+                    request.setAttribute("mensagemErro", "Erro: este email já está cadastrado!");
+                } else {
+                    request.setAttribute("mensagemErro", "Erro no banco de dados: " + sqlEx.getMessage());
+                }
+            } else {
+                request.setAttribute("mensagemErro", "Erro inesperado: " + e.getMessage());
+            }
+        }
+
         encaminharParaPagina(request, response);
     }
 
@@ -184,4 +223,118 @@ public class VisitanteControlador extends HttpServlet {
 
         encaminharParaPagina(request, response);
     }
+
+    // ===============================
+// MÉTODOS VERSÃO LIVRE (PÚBLICA)
+// ===============================
+    private void encaminharParaPaginaLivre(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/CadastroVisitanteLivre.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void cadastrarLivre(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String nomeVisitante = request.getParameter("nomeVisitante");
+            String dataNascimento = request.getParameter("dataNascimento");
+            String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+
+            Visitante objVisitante = new Visitante();
+            objVisitante.setNomeVisitante(nomeVisitante);
+            objVisitante.setDataNascimento(LocalDate.parse(dataNascimento));
+            objVisitante.setEmail(email);
+            objVisitante.setSenha(senha);
+
+            VisitanteDAO dao = new VisitanteDAO();
+            dao.salvar(objVisitante);
+
+            request.setAttribute("mensagem", "Cadastro realizado com sucesso!");
+        } catch (Exception e) {
+            request.setAttribute("mensagem", "Erro ao realizar o cadastro: " + e.getMessage());
+        }
+
+        encaminharParaPaginaLivre(request, response);
+    }
+
+    private void editarLivre(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            int codVisitante = Integer.parseInt(request.getParameter("codVisitante"));
+            VisitanteDAO dao = new VisitanteDAO();
+            Visitante objVisitante = dao.buscarPorId(codVisitante);
+            request.setAttribute("objVisitante", objVisitante);
+        } catch (Exception e) {
+            request.setAttribute("mensagem", "Erro ao carregar dados para edição: " + e.getMessage());
+        }
+
+        encaminharParaPaginaLivre(request, response);
+    }
+
+    private void confirmarEditarLivre(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            int codVisitante = Integer.parseInt(request.getParameter("codVisitante"));
+            String nomeVisitante = request.getParameter("nomeVisitante");
+            String dataNascimento = request.getParameter("dataNascimento");
+            String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+
+            Visitante objVisitante = new Visitante();
+            objVisitante.setCodVisitante(codVisitante);
+            objVisitante.setNomeVisitante(nomeVisitante);
+            objVisitante.setDataNascimento(LocalDate.parse(dataNascimento));
+            objVisitante.setEmail(email);
+            objVisitante.setSenha(senha);
+
+            VisitanteDAO dao = new VisitanteDAO();
+            dao.alterar(objVisitante);
+
+            request.setAttribute("mensagem", "Dados atualizados com sucesso!");
+        } catch (Exception e) {
+            request.setAttribute("mensagem", "Erro ao atualizar cadastro: " + e.getMessage());
+        }
+
+        encaminharParaPaginaLivre(request, response);
+    }
+
+    private void excluirLivre(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            int codVisitante = Integer.parseInt(request.getParameter("codVisitante"));
+            VisitanteDAO dao = new VisitanteDAO();
+            Visitante objVisitante = dao.buscarPorId(codVisitante);
+            request.setAttribute("objVisitante", objVisitante);
+        } catch (Exception e) {
+            request.setAttribute("mensagem", "Erro ao carregar dados para exclusão: " + e.getMessage());
+        }
+
+        encaminharParaPaginaLivre(request, response);
+    }
+
+    private void confirmarExcluirLivre(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            int codVisitante = Integer.parseInt(request.getParameter("codVisitante"));
+            Visitante objVisitante = new Visitante();
+            objVisitante.setCodVisitante(codVisitante);
+
+            VisitanteDAO dao = new VisitanteDAO();
+            dao.excluir(objVisitante);
+
+            request.setAttribute("mensagem", "Cadastro excluído com sucesso!");
+        } catch (Exception e) {
+            request.setAttribute("mensagem", "Erro ao excluir cadastro: " + e.getMessage());
+        }
+
+        encaminharParaPaginaLivre(request, response);
+    }
+
+    private void cancelarLivre(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setAttribute("mensagem", "Operação cancelada pelo usuário.");
+        encaminharParaPaginaLivre(request, response);
+    }
+
 }

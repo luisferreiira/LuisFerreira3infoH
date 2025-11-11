@@ -16,7 +16,7 @@
             <h2>Cadastro de Visitantes</h2>
             <form action="${pageContext.request.contextPath}${URL_BASE}/VisitanteControlador"
                   method="get">
-                <!-- Campo oculto para código do evento e operação (cadastrar, editar, etc.) -->
+                <!-- Campo oculto para cï¿½digo do evento e operaï¿½ï¿½o (cadastrar, editar, etc.) -->
                 <input type="hidden" name="codVisitante" value="${codVisitante}">
                 <input type="hidden" name="opcao" value="${opcao != null ? opcao : 'cadastrar'}">
 
@@ -39,12 +39,12 @@
                 <!-- Mensagem de feedback (caso exista) -->
                 <h3 style="color: #0066cc;">${mensagem}</h3>
 
-                <!-- Botão de ação (Cadastrar ou Atualizar) -->
+                <!-- Botï¿½o de aï¿½ï¿½o (Cadastrar ou Atualizar) -->
                 <button type="submit" name="opcao" value="${opcao == 'confirmarEditar' ? 'confirmarEditar' : (opcao == 'confirmarExcluir' ? 'confirmarExcluir' : 'cadastrar')}">
                     ${opcao == 'confirmarEditar' ? 'Editar' : (opcao == 'confirmarExcluir' ? 'Excluir' : 'Cadastrar')}
                 </button>
 
-                <!-- Botão de Cancelar -->
+                <!-- Botï¿½o de Cancelar -->
                 <a href="${pageContext.request.contextPath}${URL_BASE}/VisitanteControlador?opcao=cancelar">
                     <button id="btnCancelar" class="botao-cancelar" type="button">Cancelar</button>
                 </a>
@@ -54,23 +54,31 @@
                 </a>
             </form>
 
+            <c:if test="${not empty mensagemErro}">
+                <h2 style="color: red;">${mensagemErro}</h2>
+            </c:if>
+
+            <c:if test="${not empty mensagem}">
+                <h2 style="color: green;">${mensagem}</h2>
+            </c:if>
+
             <hr>
 
             <h2>Lista de Visitantes</h2>
-            
+
             <div class="aviso-mobile-tabela">
-                <p>A listagem detalhada está disponível apenas em telas maiores (tablets ou desktops) para garantir a visualização completa de todos os dados.</p>
+                <p>A listagem detalhada estï¿½ disponï¿½vel apenas em telas maiores (tablets ou desktops) para garantir a visualizaï¿½ï¿½o completa de todos os dados.</p>
                 <p style="margin-top: 10px;">Por favor, gire seu dispositivo ou use um monitor maior.</p>
             </div>
-            
+
             <table class="tabela-categorias">
                 <tr>
-                    <th>Código</th>
+                    <th>Cï¿½digo</th>
                     <th>Visitante</th>
                     <th>Data de Nascimento</th>
                     <th>Email</th>
                     <th>Senha</th>
-                    <th>Ações</th>
+                    <th>Aï¿½ï¿½es</th>
                 </tr>
                 <c:forEach var="v" items="${listaVisitante}">
                     <tr>
@@ -80,7 +88,7 @@
                         <td>${v.email}</td>
                         <td>${v.senha}</td>
                         <td class="td-acoes">
-                            <!-- Botão para editar -->
+                            <!-- Botï¿½o para editar -->
                             <form style="margin:0;" action="${pageContext.request.contextPath}${URL_BASE}/VisitanteControlador" method="get">
                                 <input type="hidden" name="opcao" value="editar">
                                 <input type="hidden" name="codVisitante" value="${v.codVisitante}">
@@ -91,7 +99,7 @@
                                 <button class="botao-editar" type="submit">Editar</button>
                             </form>
 
-                            <!-- Botão para excluir -->
+                            <!-- Botï¿½o para excluir -->
                             <form style="margin:0;" action="${pageContext.request.contextPath}${URL_BASE}/VisitanteControlador" method="get">
                                 <input type="hidden" name="opcao" value="excluir">
                                 <input type="hidden" name="codVisitante" value="${v.codVisitante}">
@@ -107,7 +115,7 @@
             </table>
         </main>
         <footer>
-            <p>&copy; 2025 Parque de Diversões. Todos os direitos reservados.</p>
+            <p>&copy; 2025 Parque de Diversï¿½es. Todos os direitos reservados.</p>
         </footer>
     </body>
 </html>

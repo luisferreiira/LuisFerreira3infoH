@@ -40,7 +40,7 @@ public class AuthFilter implements Filter {
                 || path.equals("/inicio.jsp")
                 || path.equals("/loginFuncionario.jsp")
                 || path.equals("/loginVisitante.jsp")
-                || path.equals("/CadastroVisitante.jsp")
+                || path.equals("/CadastroVisitanteLivre.jsp")
                 || path.equals("/CadastroFuncionario")
                 || path.contains("/estilo/")
                 || path.contains("/imagens/")
@@ -77,6 +77,7 @@ public class AuthFilter implements Filter {
                 || path.startsWith("/CadastroIngressoBrinquedos")
                 || path.startsWith("/CadastroIngressoEventos")
                 || path.startsWith("/CadastroLanche")
+                || path.startsWith("/CadastroVisitante")
                 || path.startsWith("/RelatorioCompras")
                 || path.startsWith("/RelatorioFuncionarios")
                 || path.contains("/FuncionarioControlador")) {

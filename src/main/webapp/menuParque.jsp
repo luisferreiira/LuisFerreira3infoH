@@ -6,16 +6,19 @@
             <div class="logo">
                 <a href="${pageContext.request.contextPath}/inicio.jsp">Parque de Diversões</a>
             </div>
-            
+
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-            
-            <ul class="nav-links" id="nav-menu"> 
+
+            <ul class="nav-links" id="nav-menu">
+                <li>
+                    <a href="${pageContext.request.contextPath}/CadastroVisitanteLivre.jsp">Cadastre-se</a>
+                </li>
                 <li class="dropdown">
-                    <a href="#">Cadastrar</a>
+                    <a href="#">Registros e Cadastros</a>
                     <ul class="submenu">
                         <li><a href="${pageContext.request.contextPath}/CadastroVisitante.jsp">Visitante</a></li>
                         <li><a href="${pageContext.request.contextPath}/CadastroCargo.jsp">Cargo</a></li>
@@ -42,16 +45,16 @@
                 <li>
                     <a href="${pageContext.request.contextPath}/LoginControlador?opcao=logout">Sair</a>
                 </li>
-                
+
             </ul>
         </nav>
-        
+
         <script>
-            document.getElementById('mobile-menu').addEventListener('click', function() {
+            document.getElementById('mobile-menu').addEventListener('click', function () {
                 var navMenu = document.getElementById('nav-menu');
                 navMenu.classList.toggle('active');
             });
         </script>
-        
+
     </body>
 </html>
