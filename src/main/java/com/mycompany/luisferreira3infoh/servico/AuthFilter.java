@@ -56,7 +56,8 @@ public class AuthFilter implements Filter {
         boolean funcionarioLogado = httpRequest.getSession().getAttribute("funcionario") != null;
 
         // Áreas de visitante
-        if (path.startsWith("/CadastroCompras.jsp") || path.startsWith("/MinhasCompras.jsp") || path.startsWith("/formAdicionarItem.jsp")) {
+        if (path.startsWith("/CadastroCompras.jsp") || path.startsWith("/MinhasCompras.jsp") || path.startsWith("/formAdicionarItem.jsp")
+                || path.startsWith("/CompraControlador?opcao=listar")) {
             if (!visitanteLogado) {
                 httpRequest.getSession().setAttribute("destinoPosLogin", path);
                 httpResponse.sendRedirect(httpRequest.getContextPath() + "/LoginVisitante.jsp");
