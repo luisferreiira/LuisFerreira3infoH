@@ -54,17 +54,17 @@
             <section class="destaques">
                 <h2>Destaques do Parque</h2>
                 <div class="cards">
-                    <div id="card1" class="card" onclick="redirecionarParaCadastroCompras()">
+                    <div id="card1" class="card">
                         <h3>Montanha-Russa</h3>
                         <p>Velocidade e adrenalina em um só brinquedo!</p>
                     </div>
 
-                    <div id="card2" class="card" onclick="redirecionarParaCadastroCompras()">
+                    <div id="card2" class="card">
                         <h3>Baile de Máscaras</h3>
                         <p>Sinta a emoção de ser livre por uma noite!</p>
                     </div>
 
-                    <div id="card3" class="card" onclick="redirecionarParaCadastroCompras()">
+                    <div id="card3" class="card">
                         <h3>Lanches</h3>
                         <p>Onde quer que vá, um cardápio apropriado você terá!</p>
                     </div>
