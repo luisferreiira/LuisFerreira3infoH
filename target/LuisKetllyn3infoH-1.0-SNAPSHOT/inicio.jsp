@@ -36,7 +36,7 @@
         </style>
         <script>
             function redirecionarParaCadastroCompras() {
-                window.location.href = "CadastroCompras.jsp";
+                window.location.href = "CompraControlador?opcao=listar";
             }
         </script>
     </head>
