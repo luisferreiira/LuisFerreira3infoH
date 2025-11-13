@@ -92,7 +92,7 @@ public class LoginControlador extends HttpServlet {
             session.removeAttribute("destinoPosLogin");
             response.sendRedirect(request.getContextPath() + destino);
         } else {
-            response.sendRedirect(request.getContextPath() + "/CadastroCompras.jsp");
+            response.sendRedirect(request.getContextPath() + "/CompraControlador?opcao=listar");
         }
     }
 
