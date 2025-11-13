@@ -58,7 +58,7 @@
 
 
                 <!-- Mensagem de feedback -->
-                <h2 style="color: #0066cc;">${mensagem}</h2>
+                <p style="color: #0066cc;">${mensagem}</p>
 
                 <!-- Botão de Ação -->
                 <button type="submit" name="opcao"

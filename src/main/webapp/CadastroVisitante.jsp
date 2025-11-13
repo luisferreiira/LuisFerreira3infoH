@@ -37,7 +37,7 @@
                 <input type="password" id="senha" name="senha" value="${senha}" size="60" required><br><br>
 
                 <!-- Mensagem de feedback (caso exista) -->
-                <h2 style="color: #0066cc;">${mensagem}</h2>
+                <p style="color: #0066cc;">${mensagem}</p>
 
                 <!-- Bot�o de a��o (Cadastrar ou Atualizar) -->
                 <button type="submit" name="opcao" value="${opcao == 'confirmarEditar' ? 'confirmarEditar' : (opcao == 'confirmarExcluir' ? 'confirmarExcluir' : 'cadastrar')}">

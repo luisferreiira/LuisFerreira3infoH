@@ -52,7 +52,7 @@
 
 
                 <!-- Mensagem de feedback (caso exista) -->
-                <h3 style="color: #0066cc;">${mensagem}</h3>
+                <p style="color: #0066cc;">${mensagem}</p>
 
                 <!-- Botão de ação (Cadastrar ou Atualizar) -->
                 <button type="submit" name="opcao" value="${opcao == 'confirmarEditar' ? 'confirmarEditar' : (opcao == 'confirmarExcluir' ? 'confirmarExcluir' : 'cadastrar')}">

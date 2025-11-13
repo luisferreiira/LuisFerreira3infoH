@@ -29,7 +29,7 @@
                 <input type="text" id="descricao" name="descricao" value="${descricao}" size="60"><br><br>
 
                 <!-- Mensagem de feedback (caso exista) -->
-                <h3 style="color: #0066cc;">${mensagem}</h3>
+                <p style="color: #0066cc;">${mensagem}</p>
 
                 <!-- Botão de ação (Cadastrar ou Atualizar) -->
                 <button type="submit">
